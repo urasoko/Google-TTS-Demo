@@ -15,6 +15,7 @@ enum VoiceType: String {
     case waveNetMale = "en-US-Wavenet-D"
     case standardFemale = "en-US-Standard-E"
     case standardMale = "en-US-Standard-D"
+    case japanese = "ja-JP-Standard-A"
 }
 
 let ttsAPIUrl = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
@@ -75,7 +76,11 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
             // All available voices here: https://cloud.google.com/text-to-speech/docs/voices
             "languageCode": "en-US"
         ]
-        
+
+        if voiceType == .japanese {
+            voiceParams["languageCode"] = "ja-JP"
+        }
+
         if voiceType != .undefined {
             voiceParams["name"] = voiceType.rawValue
         }

@@ -15,12 +15,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var voiceCategoryControl: UISegmentedControl!
     @IBOutlet weak var voiceGenderControl: UISegmentedControl!
+    @IBOutlet weak var langControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    @IBAction func didPressSpeakButton(_ sender: Any) {        
+    
+    @IBAction func didPressSpeakButton(_ sender: Any) {
         speakButton.setTitle("Speaking...", for: .normal)
         speakButton.isEnabled = false
         speakButton.alpha = 0.6
@@ -28,7 +29,11 @@ class ViewController: UIViewController {
         var voiceType: VoiceType = .undefined
         let category = voiceCategoryControl.titleForSegment(at: voiceCategoryControl.selectedSegmentIndex)
         let gender = voiceGenderControl.titleForSegment(at: voiceGenderControl.selectedSegmentIndex)
-        if category == "WaveNet" && gender == "Female" {
+        let lang = langControl.titleForSegment(at: langControl.selectedSegmentIndex)
+        if lang == "jp"  {
+            voiceType = .japanese
+        }
+        else if category == "WaveNet" && gender == "Female" {
             voiceType = .waveNetFemale
         }
         else if category == "WaveNet" && gender == "Male" {
